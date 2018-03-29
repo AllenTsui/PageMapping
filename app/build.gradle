@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.github.985557461.PageMapping:annotation:0.2'
+    compile 'com.github.985557461.PageMapping:annotation:0.3'
     compile project(':pagerecord')
     compile project(':subapp')
     annotationProcessor project(':compiler')
