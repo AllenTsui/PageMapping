@@ -1,7 +1,7 @@
 package com.example.compiler;
 
-import com.example.annotation.Module;
-import com.example.annotation.Modules;
+import com.example.annotation.PageModule;
+import com.example.annotation.PageModules;
 import com.example.annotation.PageName;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
@@ -60,18 +60,18 @@ public class AnnotationProcessor extends AbstractProcessor {
         boolean hasModules = false;
         // module
         String moduleName = "PageMapping";
-        Set<? extends Element> moduleList = roundEnv.getElementsAnnotatedWith(Module.class);
+        Set<? extends Element> moduleList = roundEnv.getElementsAnnotatedWith(PageModule.class);
         if (moduleList != null && moduleList.size() > 0) {
-            Module annotation = moduleList.iterator().next().getAnnotation(Module.class);
+            PageModule annotation = moduleList.iterator().next().getAnnotation(PageModule.class);
             moduleName = moduleName + "_" + annotation.value();
             hasModule = true;
         }
         // modules
         String[] moduleNames = null;
-        Set<? extends Element> modulesList = roundEnv.getElementsAnnotatedWith(Modules.class);
+        Set<? extends Element> modulesList = roundEnv.getElementsAnnotatedWith(PageModules.class);
         if (modulesList != null && modulesList.size() > 0) {
             Element modules = modulesList.iterator().next();
-            moduleNames = modules.getAnnotation(Modules.class).value();
+            moduleNames = modules.getAnnotation(PageModules.class).value();
             hasModules = true;
         }
         // RouterInit
