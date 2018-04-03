@@ -42,6 +42,8 @@ public class AnnotationProcessor extends AbstractProcessor {
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> set = new HashSet<>();
         set.add(PageName.class.getCanonicalName());
+        set.add(PageModule.class.getCanonicalName());
+        set.add(PageModules.class.getCanonicalName());
         return set;
     }
 
@@ -127,17 +129,20 @@ public class AnnotationProcessor extends AbstractProcessor {
         MethodSpec.Builder mapMethod = MethodSpec.methodBuilder("map")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL);
 
-        for (Element element : elements) {
-            PageName pageName = element.getAnnotation(PageName.class);
-            ClassName className;
+        if (elements != null && elements.size() > 0) {
+            for (Element element : elements) {
+                PageName pageName = element.getAnnotation(PageName.class);
+                ClassName className;
 
-            if (element.getKind() == ElementKind.CLASS) {
-                className = ClassName.get((TypeElement) element);
-                mapMethod.addStatement("com.example.pagerecord.PageRecorder.map($T.class, $S)", className, pageName.value());
-            } else {
-                throw new IllegalArgumentException("unknow type");
+                if (element.getKind() == ElementKind.CLASS) {
+                    className = ClassName.get((TypeElement) element);
+                    mapMethod.addStatement("com.example.pagerecord.PageRecorder.map($T.class, $S)", className, pageName.value());
+                } else {
+                    throw new IllegalArgumentException("unknow type");
+                }
             }
         }
+
         TypeSpec pageMapping = TypeSpec.classBuilder(genClassName)
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 .addMethod(mapMethod.build())

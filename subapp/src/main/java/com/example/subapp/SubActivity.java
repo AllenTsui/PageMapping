@@ -10,7 +10,6 @@ import com.example.pagerecord.PageRecorder;
 /**
  * Created by xiaoyu on 2018/3/28 0028.
  */
-@PageName("subPage")
 public class SubActivity extends Activity{
     private TextView pageName;
 
