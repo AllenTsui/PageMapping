@@ -22,5 +22,6 @@ public class SubActivity extends Activity{
         pageName = (TextView) findViewById(R.id.pageName);
         String pageNameStr = PageRecorder.getPageName(getClass());
         pageName.setText(pageNameStr);
+        String s = "ssss";
     }
 }
