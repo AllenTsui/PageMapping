@@ -1,7 +1,5 @@
 package com.example.pagerecord;
 
-import android.app.Activity;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +27,11 @@ public class PageRecorder {
         }
     }
 
-    protected static void map(Class<? extends Activity> activity,String value){
-        mappings.add(new Mapping(activity,value));
+    protected static void map(Class<?> activity,String value){
+        mappings.add(new Mapping(activity, value));
     }
 
-    public static final String getPageName(Class<? extends Activity> activity) {
+    public static final String getPageName(Class<?> activity) {
         initIfNeed();
         for (int i = 0; i < mappings.size(); i++) {
             if (mappings.get(i).keyEquals(activity)) {
